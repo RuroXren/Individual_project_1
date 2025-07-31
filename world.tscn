@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsvxm03aelinj"]
+
+[ext_resource type="PackedScene" uid="uid://02tbo0x7riwn" path="res://Character.tscn" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://dofep8qbiqynq" path="res://world.gd" id="1_tlwt5"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_tlwt5")
+
+[node name="Character" parent="." instance=ExtResource("1_f3sb7")]
+position = Vector2(500, 300)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="WordCont" type="Node2D" parent="."]
+
+[node name="Inp_Dis" type="Label" parent="."]
+offset_left = 470.0
+offset_top = 172.0
+offset_right = 510.0
+offset_bottom = 195.0
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
