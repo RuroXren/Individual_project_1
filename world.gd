@@ -2,7 +2,7 @@ extends Node2D
 
 const SCREEN_W := 1000
 const SCREEN_H := 600
-const MARGIN := 10
+const MARGIN := 15
 var words_list = ["hello", "boat", "human", "game", "key", "lock", "pizza"]
 
 func _ready():
