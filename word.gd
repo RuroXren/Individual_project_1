@@ -2,9 +2,10 @@ extends CharacterBody2D
 
 var word: String = ""
 var player_ref: Node2D = null
-var speed: int = 50
+var speed: int = 40
 
 func _ready():
+	add_to_group("Word")
 	$Label.text = word
 	
 	player_ref = get_tree().get_first_node_in_group("Player")

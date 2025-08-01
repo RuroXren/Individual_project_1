@@ -3,12 +3,19 @@ extends Node2D
 const SCREEN_W := 1000
 const SCREEN_H := 600
 const MARGIN := 15
-var words_list = ["hello", "boat", "human", "game", "key", "lock", "pizza"]
+
+
+var path = "res://word_list_ru.txt"
+var words_list = [
+	"пока","цирк","танк","часы",
+	"утка","вино","щука","фара",
+	"кола","хлеб","утюг","юбка",
+	"вода","зонт","торт","яхта",
+]
 
 func _ready():
 	$Timer.timeout.connect(_spawn_word)
 	$Timer.start(2.0)
-	
 
 func _process(_delta):
 	$Inp_Dis.text = "ВВОД: " + curr_inp
@@ -38,8 +45,7 @@ var curr_inp := ""
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
-		if event.unicode >= 16 and event.unicode <= 512:
-			curr_inp += char(event.unicode)
+		curr_inp += char(event.unicode)
 		
 		if event.keycode == KEY_ENTER:
 			_check_w(curr_inp)
