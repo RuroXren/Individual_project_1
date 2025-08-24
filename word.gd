@@ -1,17 +1,15 @@
 extends CharacterBody2D
 
-var word: String = ""
-var player_ref: Node2D = null
-var speed: int = 40
+var speed = 60
+var word = ""
+var P = null
 
-func _ready():
+func _ready() -> void:
 	add_to_group("Word")
 	$Label.text = word
-	
-	player_ref = get_tree().get_first_node_in_group("Player")
-
-func _physics_process(delta):
-	if player_ref:
-		var direction = global_position.direction_to(player_ref.global_position)
-		velocity = direction * speed
+	P = get_tree().get_first_node_in_group("Player")
+func _physics_process(delta: float) -> void:
+	if P:
+		var dir = global_position.direction_to(P.global_position)
+		velocity = dir * speed
 		move_and_collide(velocity * delta)

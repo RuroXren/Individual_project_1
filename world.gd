@@ -1,61 +1,55 @@
 extends Node2D
 
-const SCREEN_W := 1000
-const SCREEN_H := 600
-const MARGIN := 15
+var text = ""
+var HP = 100
 
+var word_list = []
 
-var path = "res://word_list_ru.txt"
-var words_list = [
-	"пока","цирк","танк","часы",
-	"утка","вино","щука","фара",
-	"кола","хлеб","утюг","юбка",
-	"вода","зонт","торт","яхта",
-]
-
-func _ready():
+func _ready() -> void:
+	load_words()
 	$Timer.timeout.connect(_spawn_word)
 	$Timer.start(2.0)
 
-func _process(_delta):
-	$Inp_Dis.text = "ВВОД: " + curr_inp
+func _process(delta: float) -> void:
+	$CharacterBody2D/ProgressBar.value = HP
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.keycode == KEY_BACKSPACE:
+			text = text.substr(0,text.length() - 1)
+			$Curr_input.text = text
+		elif event.keycode == KEY_ENTER:
+			text_sub()
+		else:
+			var char = event.unicode
+			if char != 0:
+				text += char(char)
+				$Curr_input.text = text
+		if event.keycode == KEY_TAB: # Debug
+			HP -= 1
+
+func text_sub():
+	text = ""
+	$Curr_input.text = text
+
+func load_words():
+	var file = FileAccess.open("res://word_list_ru.txt", FileAccess.READ)
+	if file:
+		while not file.eof_reached():
+			var line = file.get_line()
+			if line != "":
+				word_list.append(line)
+		file.close()
 
 func _spawn_word():
 	var scen = preload("res://word.tscn")
-	var w_ins = scen.instantiate()
+	var n_word = scen.instantiate()
+	n_word.word = word_list[randi() % word_list.size()]
 	
-	w_ins.word = words_list[randi() % words_list.size()]
+	var spawn_x = randf_range(50, get_viewport_rect().size.x - 50)
+	n_word.position = Vector2(spawn_x, -30)
 	
-	var spawn_pos := Vector2()
-	var side = randi() % 4
-	match side:
-		0:
-			spawn_pos = Vector2(randf_range(0, SCREEN_W), -MARGIN)
-		1:
-			spawn_pos = Vector2(randf_range(0, SCREEN_W),  SCREEN_H + MARGIN)
-		2:
-			spawn_pos = Vector2(-MARGIN, randf_range(0, SCREEN_H))
-		3:
-			spawn_pos = Vector2(SCREEN_W + MARGIN, randf_range(0, SCREEN_H))
-			
-	w_ins.position = spawn_pos
-	$WordCont.add_child(w_ins)
+	add_child(n_word)
 
-var curr_inp := ""
-
-func _input(event):
-	if event is InputEventKey and event.pressed:
-		curr_inp += char(event.unicode)
-		
-		if event.keycode == KEY_ENTER:
-			_check_w(curr_inp)
-			curr_inp = ""
-		
-		if event.keycode == KEY_BACKSPACE:
-			curr_inp = curr_inp.substr(0, curr_inp.length() - 1)
-
-func  _check_w(input: String):
-	for word in $WordCont.get_children():
-		if word.word.to_lower() == input.to_lower():
-			word.queue_free()
-			break
+func check(inputed_text):
+	pass

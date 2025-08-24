@@ -13,7 +13,7 @@ config_version=5
 config/name="ИП1"
 config/description="Индивидуальный проект №1"
 config/version="a - 0.0.1"
-run/main_scene="uid://bsvxm03aelinj"
+run/main_scene="uid://cc5owuhuixsaj"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 

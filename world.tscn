@@ -1,23 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsvxm03aelinj"]
+[gd_scene load_steps=4 format=3 uid="uid://cc5owuhuixsaj"]
 
-[ext_resource type="PackedScene" uid="uid://02tbo0x7riwn" path="res://Character.tscn" id="1_f3sb7"]
-[ext_resource type="Script" uid="uid://dofep8qbiqynq" path="res://world.gd" id="1_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://dujs71mm0a33w" path="res://Character.tscn" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://c6p2688g4kggh" path="res://world.gd" id="1_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://b74qexso3qm2u" path="res://word.tscn" id="3_tlwt5"]
 
 [node name="World" type="Node2D"]
-script = ExtResource("1_tlwt5")
+script = ExtResource("1_fj7yv")
 
-[node name="Character" parent="." instance=ExtResource("1_f3sb7")]
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_f3sb7")]
 position = Vector2(500, 300)
 
-[node name="Timer" type="Timer" parent="."]
-
-[node name="WordCont" type="Node2D" parent="."]
-
-[node name="Inp_Dis" type="Label" parent="."]
-offset_left = 470.0
-offset_top = 172.0
-offset_right = 510.0
-offset_bottom = 195.0
+[node name="Curr_input" type="Label" parent="."]
+offset_left = 436.0
+offset_top = 205.0
+offset_right = 564.0
+offset_bottom = 236.0
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Word" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(632, -34)
+
+[node name="Word2" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(7, 421)
+
+[editable path="CharacterBody2D"]
